@@ -17,14 +17,14 @@ public class FacturasDesglosadas extends Factura {
         this.importeBonificacion=bonificacion();
     }
 
-    public FacturasDesglosadas(String cif, String nombreEmpresa, String fechaEnvio, String codEnvio, String[] codFactura,
+  /*  public FacturasDesglosadas(String cif, String nombreEmpresa, String fechaEnvio, String codEnvio, String[] codFactura,
                                double importeFacturaSinIva, double importeFacturaConIva, double importeBonificacion) {
         super(cif, nombreEmpresa, fechaEnvio, codEnvio);
         this.codFactura = codFactura;
         this.importeFacturaSinIva = importeFacturaSinIva;
         this.importeFacturaConIva = importeFacturaConIva;
         this.importeBonificacion=bonificacion();
-    }
+    }*/
 
     public String[] getCodFactura() {
         return codFactura;
@@ -69,12 +69,11 @@ public class FacturasDesglosadas extends Factura {
 
     @Override
     public String toString() {
-        return "FacturasDesglosadas{" +
-                "codFactura=" + Arrays.toString(codFactura) +
-                ", importeFacturaSinIva=" + importeFacturaSinIva +
-                ", importeFacturaConIva=" + importeFacturaConIva +
-                ", importeBonificacion=" + importeBonificacion +
-                '}';
+        return super.toString() +
+                "codFactura " + Arrays.toString(codFactura) +
+                ", importeFacturaSinIva " + importeFacturaSinIva +
+                ", importeFacturaConIva " + importeFacturaConIva +
+                ", importeBonificacion " + importeBonificacion;
     }
     /**
      * Metodo para poder hallar los pagos que tienen bonificacion dependiendo de las compras realizadas

@@ -40,13 +40,13 @@ public class LecturaYEscrituraFicheros_Metodos {
         String fechaEnvio = null;
         String codEnvio = null;
 
-        String codigoFactura1 = null;
-        double facturaSinIva1 = 0;
-        double factuaConIva1 = 0;
+        String codigoFactura = null;
+        double facturaTotSinIva = 0;
+        double FacturaTotalConIva = 0;
 
         String codigoFactura2 = null;
-        double facturaSinIva2 = 0;
-        double factuaConIva2 = 0;
+        double facturaSinIva = 0;
+        double factuaConIva = 0;
 
         String codigoFactura3 = null;
         double facturaSinIva3 = 0;
@@ -66,7 +66,7 @@ public class LecturaYEscrituraFicheros_Metodos {
          */
             while ((linea = bufferedReader.readLine()) != null) {
 
-            // Declaro la clase Scanner y le introduzco dentro el valor de la linea lida, para que saque dato a dato el valor de cada elemento
+                // Declaro la clase Scanner y le introduzco dentro el valor de la linea lida, para que saque dato a dato el valor de cada elemento
 
                 sc = new Scanner(linea);
 
@@ -82,9 +82,23 @@ public class LecturaYEscrituraFicheros_Metodos {
                 if (sc.hasNext()) {
                     codEnvio = sc.next();
                 }
-                if (sc.hasNext()) {
-                    codigoFactura1 = sc.next();
+
+                for (int i = 0; i < 4; i++) {
+                    if (sc.hasNext()) {
+                        listaCodFactura[i] = sc.next();
+                        if (sc.hasNextDouble()) {
+
+                            facturaTotSinIva += sc.nextDouble();
+                            if (sc.hasNextDouble()) {
+                                factuaConIva = sc.nextDouble();
+                                FacturaTotalConIva += factuaConIva;
+                            }
+                        }
+                    }
                 }
+
+
+             /*   }
                 if (sc.hasNextDouble()) {
                     facturaSinIva1 = sc.nextDouble();
                 }
@@ -117,25 +131,24 @@ public class LecturaYEscrituraFicheros_Metodos {
                 }
                 if (sc.hasNextDouble()) {
                     factuaConIva4 = sc.nextDouble();
-                }
+                }*/
 
 
-        //antes de meter el valor de las facturas con iva y sin Iva las sumo para meterle el total a la clase Factura
-                double totalSinIva = facturaSinIva1 + facturaSinIva2 + facturaSinIva3 + facturaSinIva4;
-                double totalConIva = factuaConIva1 + factuaConIva2 + factuaConIva3 + factuaConIva4;
+                //antes de meter el valor de las facturas con iva y sin Iva las sumo para meterle el total a la clase Factura
+              /*  double totalSinIva = facturaSinIva1 + facturaSinIva2 + facturaSinIva3 + facturaSinIva4;
+                double totalConIva = factuaConIva1 + factuaConIva2 + factuaConIva3 + factuaConIva4;*/
 
                 /**
                  * Como no se me ocurre como meterlo si no asi, asignamos cada posicion el valor de la misma en el array
                  */
 
-                listaCodFactura[0] = codigoFactura1;
+             /*   listaCodFactura[0] = codigoFactura1;
                 listaCodFactura[1] = codigoFactura2;
                 listaCodFactura[2] = codigoFactura3;
-                listaCodFactura[3] = codigoFactura4;
+                listaCodFactura[3] = codigoFactura4;*/
 
                 //lo introducimos en el TreeSet
-                listafacturasTreeset.add(new FacturasDesglosadas(cif, nombreEmpresa, fechaEnvio, codEnvio, listaCodFactura, totalSinIva, totalConIva));
-
+                listafacturasTreeset.add(new FacturasDesglosadas(cif, nombreEmpresa, fechaEnvio, codEnvio, listaCodFactura, facturaTotSinIva, FacturaTotalConIva));
 
             }
 
@@ -166,8 +179,13 @@ public class LecturaYEscrituraFicheros_Metodos {
             fileOutputStream = new FileOutputStream(file);
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-            for (int i = 0; i < listafacturasTreeset.size(); i++) {
+           /* for (int i = 0; i < listafacturasTreeset.size(); i++) {
                 objectOutputStream.writeObject(listafacturasTreeset);
+            }*/
+
+            for (FacturasDesglosadas e:listafacturasTreeset
+                 ) {
+                System.out.println(e);
             }
             System.out.println("salgo");
         } catch (FileNotFoundException e) {
